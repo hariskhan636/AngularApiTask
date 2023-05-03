@@ -1,0 +1,157 @@
+body{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.section {
+  width: 35%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1px;
+  /* border: solid 1px black; */
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10%;
+}
+
+.all-nurses,
+.sel-nurses {
+  height: 100vh;
+  width: 85%;
+  border: solid 3px #a7deec;
+  border-radius: 10px;
+  overflow: scroll;
+}
+
+.nurse {
+  margin: 10px;
+  height: auto;
+  border: solid 5px #eaf5ff;
+}
+
+.nurse h1 {
+  margin: 10px;
+}
+
+.nurse .service {
+  margin: 2px;
+}
+
+.section h2 {
+  color: #a7deec;
+  font-size: medium;
+}
+
+h2 {
+  margin: 0;
+}
+
+.select-button,
+.unselect-button {
+  margin: 5px 0;
+  padding: 10px;
+  color: white;
+  background-color: orangered;
+  border: 0;
+  width: 100px;
+  border-radius: 3px;
+}
+
+.unselect-button {
+  background-color: #098dcc;
+  width: 120px;
+}
+
+.btns {
+  margin: 5px 5px;
+  padding: 5px;
+  border: 0;
+  text-align: center;
+  color: white;
+  display: inline-block;
+}
+
+h1 {
+  font-size: small;
+}
+
+.service {
+  border-radius: 10px;
+  padding: 5px 5px;
+  display: inline-block;
+  background-color: #d0e5f5;
+  color: #00a0e9;
+}
+
+span {
+  color: #009de8;
+}
+
+.schedule {
+  border: 10px solid #EBF6FF;
+  padding: 10px;
+  margin: 10px;
+  width: 600px;
+  height: auto;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+  background-color: white;
+  text-align: center;
+}
+
+.sched{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sched h1 {
+  color: #0b8dcc;
+  font-size: x-large;
+  text-align: left;
+}
+
+.fa-window-close{
+    color: red;
+    text-align: center;
+    font-size: x-large;
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.para {
+  margin: 30px;
+  text-align: left;
+  font-size: x-large;
+}
+
+.date {
+  width: 50%;
+}
+
+.status{
+    width: 30%
+}
+
+hr{
+    width: 90%;
+    color: #c9e4fa;
+}
+
