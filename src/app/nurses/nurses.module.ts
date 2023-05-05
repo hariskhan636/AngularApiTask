@@ -6,7 +6,6 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { DataService } from './data.service';
 
-
 @NgModule({
   declarations: [
     NursesComponent,
