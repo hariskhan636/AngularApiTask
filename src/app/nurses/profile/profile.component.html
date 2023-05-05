@@ -1,0 +1,87 @@
+<div class="container">
+  <div class="div1">
+    <div class="profile">
+      <h1>{{ nurseData.name }}</h1>
+      <h4>Age: {{ nurseData.dob }}</h4>
+      <h4>K-Number: {{ nurseData.k_number }}</h4>
+      <h4>ZSR-Number: {{ nurseData.zsr_number }}</h4>
+      <h4>SBK-Number: {{ nurseData.sbk_number }}</h4>
+    </div>
+
+    <div class="services">
+      <div class="part1">
+        <h2>Services:</h2>
+      </div>
+      <div class="part2">
+        <div class="serv" *ngFor="let serv of nurseData.services">
+          <h3>{{ serv.service.name_en }}</h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="rates">
+      <div class="part1">
+        <h2>Hourly Rates:</h2>
+      </div>
+      <div class="part2">
+        <div class="rate" *ngFor="let serv of nurseData.services">
+          <h3 style="width: 70%">{{ serv.service.name_en }}</h3>
+          <h3 style="width: 25%">CHF {{ serv.base_price }}</h3>
+        </div>
+      </div>
+    </div>
+
+    <button>Requests</button>
+  </div>
+
+  <div class="div2">
+
+    <div class="documents">
+      <div class="text">
+        <h2><i class="fas fa-file-alt"></i> Documents</h2>
+      </div>
+      <div class="doc" *ngFor="let doc of nurseData.documents">
+        <h3 class="para" style="text-align: left;">Name: {{ doc.title }}</h3>
+        <hr>
+      </div>
+      <div *ngIf="nurseData.documents.length === 0">
+        <h3>No Documents Available</h3>
+      </div>
+    </div>
+
+    <div class="schedules">
+      <div class="text">
+        <h2> <i class="fas fa-calendar-alt"></i> Schedules</h2>
+      </div>
+      <div class="sched" *ngFor="let sched of nurseData.schedules">
+        <div class="col">
+          <p class="para">
+            {{ sched.start_time.slice(0, 10) | date : "fullDate" : "en-US"}} -
+            {{ sched.end_time.slice(0, 10) | date : "fullDate" : "en-US"}}
+          </p>
+          <p class="para">
+            {{ sched.start_time.slice(11, 16) }} -
+            {{ sched.end_time.slice(11, 16) }}
+          </p>
+        </div>
+        <div class="col2">
+          <p class="para" *ngIf="sched.status == 'available'">
+            Status: Available
+          </p>
+          <p class="para" *ngIf="sched.status == 'not_available'">
+            Status: Not available
+          </p>
+        </div>
+        
+        <hr />
+      </div>
+    </div>
+
+    <div class="reviews">
+      <div class="text">
+        <h2><i class="fas fa-comment"></i> Client Reviews</h2>
+      </div>
+      <h3>No reviews</h3>
+    </div>
+  </div>
+</div>

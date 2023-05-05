@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { DataService } from '../data.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-nurses',
@@ -14,9 +16,11 @@ export class NursesComponent implements OnInit {
   scheduleModal = false;
   nurseId = 0;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private dataSerivce: DataService, private datepipe: DatePipe) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getUsersFromServer()
+  }
 
   getUsersFromServer() {
     this.loadingStatus = 'loading';
@@ -30,11 +34,14 @@ export class NursesComponent implements OnInit {
       (resp: any) => {
         this.loadingStatus = 'done';
         this.usersList  = resp.data;
+        console.log(this.usersList);
       },
       () => {
         this.loadingStatus = 'error';
       }
     );
+
+    
   }
 
   addNurses(i: number) {
@@ -60,6 +67,10 @@ export class NursesComponent implements OnInit {
     this.selectedNurses.splice(i, 1);
   }
 
+  sendNurseData(i: number){
+    this.dataSerivce.setData(this.usersList[i])
+  }
+
   selectAll(){
     this.selectedNurses = []
     for(let i=0;i<this.usersList.length;i++){
@@ -75,8 +86,6 @@ export class NursesComponent implements OnInit {
   displaySchedule(i: number){
     this.scheduleModal = true; 
     this.nurseId=i
-    console.log(this.nurseId);
-    
   }
 }
 

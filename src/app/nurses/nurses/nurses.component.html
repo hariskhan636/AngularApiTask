@@ -1,104 +1,119 @@
-<button class="button" (click)="usersList = []; getUsersFromServer()">
+<!-- <button class="button" (click)="usersList = []; getUsersFromServer()">
   Get Nurses Data
-</button>
+</button> -->
+<div class="main">
+  <div class="container">
+    <div class="section">
+      <h2>All Nurses</h2>
+      <div class="all-nurses">
+        <div class="nurse" *ngFor="let nurse of usersList; let i = index">
+          <h1>{{ nurse.name }}</h1>
+          <h1>Experience: {{ nurse.total_experience }} Years</h1>
+          <h1>ZSR Number: {{ nurse.zsr_number }}</h1>
+          <h1><i class="fas fa-map-marker-alt"></i> {{ nurse.address }}</h1>
+          <h1 class="service" *ngFor="let serv of nurse.services">
+            {{ serv.service.name_en }}
+          </h1>
+          <h1 class="rating">Rating: {{ nurse.avg_rating }}</h1>
+          <div>
+            <button
+              routerLink="profile"
+              (click)="sendNurseData(i)"
+              class="btns"
+              style="background-color: #098dcc; margin-left: 20%"
+            >
+              View Profile
+            </button>
+            <button
+              (click)="displaySchedule(i)"
+              class="btns"
+              style="background-color: orangered"
+            >
+              Schedule Visit
+            </button>
+            <button
+              class="btns"
+              (click)="addNurses(i)"
+              style="background-color: red"
+            >
+              Add
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
-<div class="container">
-  <div class="section">
-    <h2>All Nurses</h2>
-    <div class="all-nurses">
-      <div class="nurse" *ngFor="let nurse of usersList; let i = index">
-        <h1>{{ nurse.name }}</h1>
-        <h1>Experience: {{ nurse.total_experience }} Years</h1>
-        <h1>ZSR Number: {{ nurse.zsr_number }}</h1>
-        <h1><i class="fas fa-map-marker-alt"></i> {{ nurse.address }}</h1>
-        <h1 class="service" *ngFor="let serv of nurse.services">
-          {{ serv.service.name_en }}
-        </h1>
-        <h1>Rating: {{ nurse.avg_rating }}</h1>
-        <button
-          class="btns"
-          style="background-color: #098dcc; margin-left: 20%"
-        >
-          View Profile
-        </button>
-        <button
-          (click)="displaySchedule(i)"
-          class="btns"
-          style="background-color: orangered"
-        >
-          Schedule Visit
-        </button>
-        <button
-          class="btns"
-          (click)="addNurses(i)"
-          style="background-color: red"
-        >
-          Add
-        </button>
+    <div class="button-container">
+      <h3 style="margin-bottom: 50px">
+        Selected Nurses: <span>{{ selectedNurses.length }}</span>
+      </h3>
+      <button (click)="selectAll()" class="select-button">Select All</button>
+      <button (click)="unselectAll()" class="unselect-button">
+        Unselect All
+      </button>
+    </div>
+
+    <div class="section">
+      <h2>Your Selected Nurses</h2>
+      <div class="sel-nurses">
+        <div class="nurse" *ngFor="let nurse of selectedNurses; let i = index">
+          <h1>{{ nurse.name }}</h1>
+          <h1>Experience: {{ nurse.total_experience }} Years</h1>
+          <h1>ZSR Number: {{ nurse.zsr_number }}</h1>
+          <h1><i class="fas fa-map-marker-alt"></i> {{ nurse.address }}</h1>
+          <h1 class="service" *ngFor="let serv of nurse.services">
+            {{ serv.service.name_en }}
+          </h1>
+          <h1 class="rating">Rating: {{ nurse.avg_rating }}</h1>
+          <div>
+            <button
+            class="btns"
+            style="background-color: #098dcc; margin-left: 25%"
+          >
+            View Profile
+          </button>
+          <button class="btns" style="background-color: orangered">
+            Schedule Visit
+          </button>
+          <i
+            (click)="removeNurse(i)"
+            class="fas fa-trash-alt fa-lg"
+            style="color: red"
+          ></i>
+          </div>
+          
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="button-container">
-    <h3 style="margin-bottom: 50px">
-      Selected Nurses: <span>{{ selectedNurses.length }}</span>
-    </h3>
-    <button (click)="selectAll()" class="select-button">Select All</button>
-    <button (click)="unselectAll()" class="unselect-button">
-      Unselect All
-    </button>
-  </div>
-
-  <div class="section">
-    <h2>Your Selected Nurses</h2>
-    <div class="sel-nurses">
-      <div class="nurse" *ngFor="let nurse of selectedNurses; let i = index">
-        <h1>{{ nurse.name }}</h1>
-        <h1>Experience: {{ nurse.total_experience }} Years</h1>
-        <h1>ZSR Number: {{ nurse.zsr_number }}</h1>
-        <h1><i class="fas fa-map-marker-alt"></i> {{ nurse.address }}</h1>
-        <h1 class="service" *ngFor="let serv of nurse.services">
-          {{ serv.service.name_en }}
-        </h1>
-        <h1>Rating: {{ nurse.avg_rating }}</h1>
-        <button
-          class="btns"
-          style="background-color: #098dcc; margin-left: 25%"
-        >
-          View Profile
-        </button>
-        <button class="btns" style="background-color: orangered">
-          Schedule Visit
-        </button>
-        <i
-          (click)="removeNurse(i)"
-          class="fas fa-trash-alt fa-lg"
-          style="color: red"
-        ></i>
-      </div>
+  <div class="schedule" [hidden]="!scheduleModal">
+    <div class="sched">
+      <h1><i class="fas fa-calendar-alt"></i> Schedules</h1>
+      <i (click)="scheduleModal = false" class="fas fa-window-close"></i>
     </div>
-  </div>
-</div>
-
-<div class="schedule" [hidden]="!scheduleModal">
-  <div class="sched">
-    <h1><i class="fas fa-calendar-alt"></i> Schedules</h1>
-    <i (click)="scheduleModal = false" class="fas fa-window-close"></i>
-  </div>
-  <div *ngFor="let nurse of usersList; let i = index">
-    <div *ngIf="i == nurseId">
-      <div class="list" *ngFor="let sched of nurse.schedules">
-        <p class="para date">
-          {{ sched.start_time.slice(0, 10) }} -
-          {{ sched.end_time.slice(0, 10) }}
-        </p>
-        <p class="para status" *ngIf="sched.status == 'available'">
-          Status: Available
-        </p>
-        <p class="para status" *ngIf="sched.status == 'not_available'">
-          Status: Not available
-        </p>
-        <hr />
+    <div *ngFor="let nurse of usersList; let i = index">
+      <div *ngIf="i == nurseId">
+        <div class="list" *ngFor="let sched of nurse.schedules">
+          <div class="col">
+            <p class="para date">
+              {{ sched.start_time.slice(0, 10) | date : "fullDate" : "en-US" }}
+              -
+              {{ sched.end_time.slice(0, 10) | date : "fullDate" : "en-US" }}
+            </p>
+            <p class="para date">
+              {{ sched.start_time.slice(11, 16) }} -
+              {{ sched.end_time.slice(11, 16) }}
+            </p>
+          </div>
+          <p class="para status" *ngIf="sched.status == 'available'">
+            Status: Available
+          </p>
+          <p class="para status" *ngIf="sched.status == 'not_available'">
+            Status: Not Available
+          </p>
+          <hr />
+        </div>
       </div>
     </div>
   </div>
