@@ -44,6 +44,7 @@
     </div>
 
     <div class="button-container">
+      <h3>Total Amount: <span>USD {{total}}</span></h3>
       <h3 style="margin-bottom: 50px">
         Selected Nurses: <span>{{ selectedNurses.length }}</span>
       </h3>
@@ -67,12 +68,18 @@
           <h1 class="rating">Rating: {{ nurse.avg_rating }}</h1>
           <div>
             <button
+              routerLink="profile"
+              (click)="sendNurseData(i)"
               class="btns"
               style="background-color: #098dcc; margin-left: 25%"
             >
               View Profile
             </button>
-            <button class="btns" style="background-color: orangered">
+            <button
+              (click)="displaySchedule(i)"
+              class="btns"
+              style="background-color: orangered"
+            >
               Schedule Visit
             </button>
             <i

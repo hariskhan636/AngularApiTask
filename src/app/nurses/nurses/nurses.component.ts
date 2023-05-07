@@ -15,6 +15,7 @@ export class NursesComponent implements OnInit {
   selectedNurses: any[] = [];
   scheduleModal = false;
   nurseId = 0;
+  total = 0;
 
   constructor(private http: HttpClient, private dataSerivce: DataService, private datepipe: DatePipe) {}
 
@@ -58,12 +59,13 @@ export class NursesComponent implements OnInit {
 
     if (added == false) {
       this.selectedNurses.push(data);
+      this.total+=this.usersList[i].base_price
       console.log(data.id);
-      
     }
   }
 
   removeNurse(i: number) {
+    this.total-=this.selectedNurses[i].base_price
     this.selectedNurses.splice(i, 1);
   }
 
@@ -73,14 +75,17 @@ export class NursesComponent implements OnInit {
 
   selectAll(){
     this.selectedNurses = []
+    let sum = 0;
     for(let i=0;i<this.usersList.length;i++){
       this.selectedNurses[i] = this.usersList[i]
+      sum+=this.selectedNurses[i].base_price
     }
-    
+    this.total = sum
   }
 
   unselectAll(){
     this.selectedNurses = []
+    this.total = 0
   }
 
   displaySchedule(i: number){
