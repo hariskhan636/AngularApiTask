@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DataService } from '../data.service';
-import { DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nurses',
@@ -17,10 +17,14 @@ export class NursesComponent implements OnInit {
   nurseId = 0;
   total = 0;
 
-  constructor(private http: HttpClient, private dataSerivce: DataService, private datepipe: DatePipe) {}
+  constructor(
+    private http: HttpClient,
+    private dataSerivce: DataService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.getUsersFromServer()
+    this.getUsersFromServer();
   }
 
   getUsersFromServer() {
@@ -34,15 +38,23 @@ export class NursesComponent implements OnInit {
     userRequest.subscribe(
       (resp: any) => {
         this.loadingStatus = 'done';
-        this.usersList  = resp.data;
-        console.log(this.usersList);
+        this.usersList = resp.data;
+        // console.log(this.usersList);
       },
       () => {
         this.loadingStatus = 'error';
       }
     );
+  }
 
-    
+  sendNurseData(i: number) {
+    // this.dataSerivce.setData(this.usersList[i])
+    // const resource = `nurse/${i}`;
+    // const nurseData = this.http.get(`${this.baseUrl}${resource}`);
+    // nurseData.subscribe((resp: any) => {
+    //   this.dataSerivce.setData(resp.data);
+    // });
+    this.router.navigateByUrl(`nurses/profile/${i}`)
   }
 
   addNurses(i: number) {
@@ -59,38 +71,34 @@ export class NursesComponent implements OnInit {
 
     if (added == false) {
       this.selectedNurses.push(data);
-      this.total+=this.usersList[i].base_price
+      this.total += this.usersList[i].base_price;
       console.log(data.id);
     }
   }
 
   removeNurse(i: number) {
-    this.total-=this.selectedNurses[i].base_price
+    this.total -= this.selectedNurses[i].base_price;
     this.selectedNurses.splice(i, 1);
   }
 
-  sendNurseData(i: number){
-    this.dataSerivce.setData(this.usersList[i])
-  }
-
-  selectAll(){
-    this.selectedNurses = []
+  selectAll(): void {
+    this.selectedNurses = [];
     let sum = 0;
-    for(let i=0;i<this.usersList.length;i++){
-      this.selectedNurses[i] = this.usersList[i]
-      sum+=this.selectedNurses[i].base_price
+    for (let i = 0; i < this.usersList.length; i++) {
+      this.selectedNurses[i] = this.usersList[i];
+      sum += this.selectedNurses[i].base_price;
     }
-    this.total = sum
+    this.total = sum;
   }
 
-  unselectAll(){
-    this.selectedNurses = []
-    this.total = 0
+  unselectAll() {
+    this.selectedNurses = [];
+    this.total = 0;
   }
 
-  displaySchedule(i: number){
-    this.scheduleModal = true; 
-    this.nurseId=i
+  displaySchedule(i: number) {
+    this.scheduleModal = true;
+    this.nurseId = i;
   }
 }
 
@@ -98,5 +106,5 @@ export class NursesComponent implements OnInit {
 //prof screen: data.name, dob, k_number, zsr_number, sbk_number
 //services[i].service.name_en, services[i].base_price, documents[i], schedules[i], customer_review
 
-
 //schedule: start_time, end_time, status
+//https://api.digital4nurse.ch/api/public/nurse/9

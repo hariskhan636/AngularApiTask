@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { ProfileComponent } from './profile.component';
 import { RouterModule } from '@angular/router';
+import { DatePipe, CommonModule } from '@angular/common';
 
 @NgModule({
+  declarations: [ProfileComponent],
   imports: [
+    DatePipe,
     CommonModule,
     RouterModule.forChild([
       {
@@ -13,6 +15,6 @@ import { RouterModule } from '@angular/router';
       }
     ])
   ],
-  declarations: [ProfileComponent]
+  providers: [DatePipe]
 })
 export class ProfileModule { }

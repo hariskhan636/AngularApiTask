@@ -7,18 +7,24 @@
       <h2>All Nurses</h2>
       <div class="all-nurses">
         <div class="nurse" *ngFor="let nurse of usersList; let i = index">
-          <h1>{{ nurse.name }}</h1>
-          <h1>Experience: {{ nurse.total_experience }} Years</h1>
-          <h1>ZSR Number: {{ nurse.zsr_number }}</h1>
-          <h1><i class="fas fa-map-marker-alt"></i> {{ nurse.address }}</h1>
+          <div class="prof">
+            <img *ngIf="nurse.gender=='Male'" class="nursepic" src="assets\images\nurse.png" alt="nurse" />
+            <img *ngIf="nurse.gender=='Female'" class="nursepic" src="assets\images\nurse2.png" alt="nurse" />
+            <div>
+              <h1>{{ nurse.name }}</h1>
+              <h1>Experience: {{ nurse.total_experience }} Years</h1>
+              <h1>ZSR Number: {{ nurse.zsr_number }}</h1>
+              <h1><i class="fas fa-map-marker-alt"></i> {{ nurse.address }}</h1>
+            </div>
+          </div>
           <h1 class="service" *ngFor="let serv of nurse.services">
             {{ serv.service.name_en }}
           </h1>
           <h1 class="rating">Rating: {{ nurse.avg_rating }}</h1>
+          <h1 class="rating" *ngIf="nurse.avg_rating==null">Rating: None</h1>
           <div>
             <button
-              routerLink="profile"
-              (click)="sendNurseData(i)"
+              (click)="sendNurseData(nurse.id)"
               class="btns"
               style="background-color: #098dcc; margin-left: 20%"
             >
@@ -44,7 +50,9 @@
     </div>
 
     <div class="button-container">
-      <h3>Total Amount: <span>USD {{total}}</span></h3>
+      <h3>
+        Total Amount: <span>USD {{ total }}</span>
+      </h3>
       <h3 style="margin-bottom: 50px">
         Selected Nurses: <span>{{ selectedNurses.length }}</span>
       </h3>
@@ -58,14 +66,21 @@
       <h2>Your Selected Nurses</h2>
       <div class="sel-nurses">
         <div class="nurse" *ngFor="let nurse of selectedNurses; let i = index">
-          <h1>{{ nurse.name }}</h1>
-          <h1>Experience: {{ nurse.total_experience }} Years</h1>
-          <h1>ZSR Number: {{ nurse.zsr_number }}</h1>
-          <h1><i class="fas fa-map-marker-alt"></i> {{ nurse.address }}</h1>
+          <div class="prof">
+            <img *ngIf="nurse.gender=='Male'" class="nursepic" src="assets\images\nurse.png" alt="nurse" />
+            <img *ngIf="nurse.gender=='Female'" class="nursepic" src="assets\images\nurse2.png" alt="nurse" />
+            <div>
+              <h1>{{ nurse.name }}</h1>
+              <h1>Experience: {{ nurse.total_experience }} Years</h1>
+              <h1>ZSR Number: {{ nurse.zsr_number }}</h1>
+              <h1><i class="fas fa-map-marker-alt"></i> {{ nurse.address }}</h1>
+            </div>
+          </div>
           <h1 class="service" *ngFor="let serv of nurse.services">
             {{ serv.service.name_en }}
           </h1>
           <h1 class="rating">Rating: {{ nurse.avg_rating }}</h1>
+          <h1 class="rating" *ngIf="nurse.avg_rating==null">Rating: None</h1>
           <div>
             <button
               routerLink="profile"

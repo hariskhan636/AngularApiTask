@@ -2,20 +2,16 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class DataService {
+  nurseData: any;
 
-    nurseData: any
+  constructor() {}
 
-constructor() { }
+  setData(data: any) {
+    this.nurseData = data;
+  }
 
-setData(data:any){
-    this.nurseData = data
-}
-
-getData(){
+  getData() {
+    console.log('GET_NURSE_DATA: ', this.nurseData);
     return this.nurseData
+  }
 }
-
-}
-
-
-
